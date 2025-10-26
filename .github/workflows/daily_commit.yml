@@ -9,7 +9,7 @@ on:
 jobs:
   commit-job:
     runs-on: ubuntu-latest
-    name: Commit job with email 22f3000730@ds.study.iitm.ac.in
+    name: 22f3000730@ds.study.iitm.ac.in
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
