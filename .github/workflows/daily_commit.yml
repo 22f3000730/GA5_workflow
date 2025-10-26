@@ -1,34 +1,31 @@
 name: Daily Commit
 
-# Schedule workflow to run every day at 08:30 UTC (change to your preferred time)
+# Run once per day at 08:30 UTC (change to your preferred time)
 on:
   schedule:
     - cron: '30 8 * * *'  # 08:30 UTC every day
   workflow_dispatch:  # allows manual triggering
 
 jobs:
-  commit-job:
+  daily-commit:
     runs-on: ubuntu-latest
-    name: 22f3000730@ds.study.iitm.ac.in
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Make a daily change
-        run: |
-          # Create/update a file to generate a commit
-          echo "Last run: $(date)" >> daily_commit.txt
+      - name: Make daily change 22f3000730@ds.study.iitm.ac.in
+        run: echo "Last run: $(date)" >> daily_commit.txt
 
-      - name: Configure Git
+      - name: Configure Git 22f3000730@ds.study.iitm.ac.in
         run: |
           git config user.name "GitHub Action"
           git config user.email "22f3000730@ds.study.iitm.ac.in"
 
-      - name: Commit and push changes
+      - name: Commit and push changes 22f3000730@ds.study.iitm.ac.in
         run: |
           git add daily_commit.txt
-          git commit -m "Daily automated commit"
-          git push
-        # Continue even if there is nothing to commit
-        continue-on-error: true
+          git commit -m "Daily automated commit" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
